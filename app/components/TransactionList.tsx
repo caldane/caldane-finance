@@ -56,47 +56,49 @@ export default function TransactionList({ transactions, onDelete }: TransactionL
   }
 
   if (transactions.length === 0) {
-    return <div className={styles.empty}>No transactions yet</div>
+    return <section className={styles.empty}>No transactions yet</section>
   }
 
   return (
-    <ul className={styles.transactionList}>
-      {transactions.map((transaction) => (
-        <li key={transaction.id}>
-          <article className={styles.transactionItem}>
-            <div className={styles.transactionContent}>
-              <header className={styles.transactionHeader}>
-                <span className={styles.categoryName}>
-                  {transaction.category.name}
+    <section className={styles.transactionSection}>
+      <ul className={styles.transactionList}>
+        {transactions.map((transaction) => (
+          <li key={transaction.id}>
+            <article className={styles.transactionItem}>
+              <header className={styles.transactionContent}>
+                <span className={styles.transactionHeader}>
+                  <span className={styles.categoryName}>
+                    {transaction.category.name}
+                  </span>
+                  <span 
+                    className={`${styles.amount} ${
+                      transaction.category.type === 'PROFIT'
+                        ? styles.amountProfit
+                        : styles.amountDeficit
+                    }`}
+                  >
+                    {formatAmount(transaction.amount, transaction.category.type)}
+                  </span>
                 </span>
-                <span 
-                  className={`${styles.amount} ${
-                    transaction.category.type === 'PROFIT'
-                      ? styles.amountProfit
-                      : styles.amountDeficit
-                  }`}
-                >
-                  {formatAmount(transaction.amount, transaction.category.type)}
-                </span>
+                {transaction.description && (
+                  <p className={styles.description}>{transaction.description}</p>
+                )}
+                <time className={styles.date} dateTime={transaction.date}>
+                  {formatDate(transaction.date)}
+                </time>
               </header>
-              {transaction.description && (
-                <p className={styles.description}>{transaction.description}</p>
-              )}
-              <time className={styles.date} dateTime={transaction.date}>
-                {formatDate(transaction.date)}
-              </time>
-            </div>
-            <button
-              onClick={() => handleDelete(transaction.id)}
-              className={styles.deleteButton}
-              type="button"
-              aria-label="Delete transaction"
-            >
-              🗑️
-            </button>
-          </article>
-        </li>
-      ))}
-    </ul>
+              <button
+                onClick={() => handleDelete(transaction.id)}
+                className={styles.deleteButton}
+                type="button"
+                aria-label="Delete transaction"
+              >
+                🗑️
+              </button>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }

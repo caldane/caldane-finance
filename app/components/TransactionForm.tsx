@@ -55,15 +55,15 @@ export default function TransactionForm({ categories, onClose, onSuccess }: Tran
   }
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()} role="dialog" aria-labelledby="transaction-form-title">
+    <section className={styles.modalOverlay} onClick={onClose}>
+      <form onSubmit={handleSubmit} className={styles.modal} onClick={(e) => e.stopPropagation()} role="dialog" aria-labelledby="transaction-form-title">
         <h2 id="transaction-form-title" className={styles.title}>Add Transaction</h2>
         {error && (
           <div className={styles.error} role="alert">
             {error}
           </div>
         )}
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <fieldset className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="transaction-category" className={styles.label}>
               Category
@@ -144,8 +144,8 @@ export default function TransactionForm({ categories, onClose, onSuccess }: Tran
               {submitting ? 'Creating...' : 'Create'}
             </button>
           </div>
-        </form>
-      </div>
-    </div>
+        </fieldset>
+      </form>
+    </section>
   )
 }

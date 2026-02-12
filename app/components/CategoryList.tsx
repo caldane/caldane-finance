@@ -51,54 +51,56 @@ export default function CategoryList({
   }
 
   if (categories.length === 0) {
-    return <div className={styles.empty}>No categories yet</div>
+    return <section className={styles.empty}>No categories yet</section>
   }
 
   return (
-    <ul className={styles.categoryList}>
-      <li>
-        <button
-          onClick={() => onSelect(null)}
-          className={`${styles.allCategoriesButton} ${selectedCategory === null ? styles.selected : ''}`}
-          type="button"
-        >
-          All Categories
-        </button>
-      </li>
-      {categories.map((category) => (
-        <li key={category.id}>
-          <article
-            className={`${styles.categoryItem} ${selectedCategory === category.id ? styles.selected : ''}`}
+    <section className={styles.categorySection}>
+      <ul className={styles.categoryList}>
+        <li>
+          <button
+            onClick={() => onSelect(null)}
+            className={`${styles.allCategoriesButton} ${selectedCategory === null ? styles.selected : ''}`}
+            type="button"
           >
-            <button
-              onClick={() => onSelect(category.id)}
-              className={styles.categoryButton}
-              type="button"
-            >
-              <div className={styles.categoryName}>{category.name}</div>
-              <div className={styles.categoryMeta}>
-                <span>{category.type === 'PROFIT' ? '💰' : '💳'}</span>
-                <span>{category.type.toLowerCase()}</span>
-                <span>•</span>
-                <span>{formatPeriod(category.reconciliationPeriod)}</span>
-              </div>
-              {category._count && (
-                <small className={styles.categoryCount}>
-                  {category._count.transactions} transaction{category._count.transactions !== 1 ? 's' : ''}
-                </small>
-              )}
-            </button>
-            <button
-              onClick={() => handleDelete(category.id)}
-              className={styles.deleteButton}
-              type="button"
-              aria-label="Delete category"
-            >
-              🗑️
-            </button>
-          </article>
+            All Categories
+          </button>
         </li>
-      ))}
-    </ul>
+        {categories.map((category) => (
+          <li key={category.id}>
+            <article
+              className={`${styles.categoryItem} ${selectedCategory === category.id ? styles.selected : ''}`}
+            >
+              <button
+                onClick={() => onSelect(category.id)}
+                className={styles.categoryButton}
+                type="button"
+              >
+                <span className={styles.categoryName}>{category.name}</span>
+                <span className={styles.categoryMeta}>
+                  <span>{category.type === 'PROFIT' ? '💰' : '💳'}</span>
+                  <span>{category.type.toLowerCase()}</span>
+                  <span>•</span>
+                  <span>{formatPeriod(category.reconciliationPeriod)}</span>
+                </span>
+                {category._count && (
+                  <small className={styles.categoryCount}>
+                    {category._count.transactions} transaction{category._count.transactions !== 1 ? 's' : ''}
+                  </small>
+                )}
+              </button>
+              <button
+                onClick={() => handleDelete(category.id)}
+                className={styles.deleteButton}
+                type="button"
+                aria-label="Delete category"
+              >
+                🗑️
+              </button>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }

@@ -102,11 +102,11 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={styles.dashboard}>
+    <section className={styles.dashboard}>
       <header className={styles.header}>
-        <div className={styles.headerContainer}>
+        <nav className={styles.headerContainer}>
           <h1 className={styles.title}>Caldane Finance</h1>
-          <nav className={styles.userInfo}>
+          <span className={styles.userInfo}>
             <span className={styles.userEmail}>{session?.user?.email}</span>
             <button
               onClick={() => signOut()}
@@ -115,14 +115,14 @@ export default function Dashboard() {
             >
               Sign Out
             </button>
-          </nav>
-        </div>
+          </span>
+        </nav>
       </header>
 
       <main className={styles.main}>
-        <div className={styles.grid}>
+        <article className={styles.grid}>
           <section className={styles.section}>
-            <div className={styles.sectionHeader}>
+            <header className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Categories</h2>
               <button
                 onClick={() => setShowCategoryForm(true)}
@@ -131,9 +131,9 @@ export default function Dashboard() {
               >
                 Add Category
               </button>
-            </div>
+            </header>
             {loading ? (
-              <div className={styles.loading}>Loading...</div>
+              <p className={styles.loading}>Loading...</p>
             ) : (
               <CategoryList
                 categories={categories}
@@ -145,7 +145,7 @@ export default function Dashboard() {
           </section>
 
           <section className={styles.section}>
-            <div className={styles.sectionHeader}>
+            <header className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>
                 Transactions
                 {selectedCategory && ' - Filtered'}
@@ -157,13 +157,13 @@ export default function Dashboard() {
               >
                 Add Transaction
               </button>
-            </div>
+            </header>
             <TransactionList
               transactions={transactions}
               onDelete={handleTransactionDeleted}
             />
           </section>
-        </div>
+        </article>
       </main>
 
       {showCategoryForm && (
@@ -179,6 +179,6 @@ export default function Dashboard() {
           onSuccess={handleTransactionCreated}
         />
       )}
-    </div>
+    </section>
   )
 }
