@@ -6,6 +6,7 @@ import CategoryList from './CategoryList'
 import TransactionList from './TransactionList'
 import CategoryForm from './CategoryForm'
 import TransactionForm from './TransactionForm'
+import styles from './Dashboard.module.css'
 
 interface Category {
   id: string
@@ -101,76 +102,70 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">Caldane Finance</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-700">{session?.user?.email}</span>
+    <div className={styles.dashboard}>
+      <header className={styles.header}>
+        <div className={styles.headerContainer}>
+          <h1 className={styles.title}>Caldane Finance</h1>
+          <nav className={styles.userInfo}>
+            <span className={styles.userEmail}>{session?.user?.email}</span>
             <button
               onClick={() => signOut()}
-              className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+              className={styles.signOutButton}
+              type="button"
             >
               Sign Out
             </button>
-          </div>
+          </nav>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Categories Section */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold text-gray-900">Categories</h2>
-                <button
-                  onClick={() => setShowCategoryForm(true)}
-                  className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                >
-                  Add Category
-                </button>
-              </div>
-              {loading ? (
-                <div className="text-center py-8 text-gray-500">Loading...</div>
-              ) : (
-                <CategoryList
-                  categories={categories}
-                  selectedCategory={selectedCategory}
-                  onSelect={handleCategorySelect}
-                  onDelete={handleCategoryDeleted}
-                />
-              )}
+      <main className={styles.main}>
+        <div className={styles.grid}>
+          <section className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Categories</h2>
+              <button
+                onClick={() => setShowCategoryForm(true)}
+                className={`${styles.addButton} ${styles.addCategoryButton}`}
+                type="button"
+              >
+                Add Category
+              </button>
             </div>
-          </div>
-
-          {/* Transactions Section */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold text-gray-900">
-                  Transactions
-                  {selectedCategory && ' - Filtered'}
-                </h2>
-                <button
-                  onClick={() => setShowTransactionForm(true)}
-                  className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
-                >
-                  Add Transaction
-                </button>
-              </div>
-              <TransactionList
-                transactions={transactions}
-                onDelete={handleTransactionDeleted}
+            {loading ? (
+              <div className={styles.loading}>Loading...</div>
+            ) : (
+              <CategoryList
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onSelect={handleCategorySelect}
+                onDelete={handleCategoryDeleted}
               />
+            )}
+          </section>
+
+          <section className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>
+                Transactions
+                {selectedCategory && ' - Filtered'}
+              </h2>
+              <button
+                onClick={() => setShowTransactionForm(true)}
+                className={`${styles.addButton} ${styles.addTransactionButton}`}
+                type="button"
+              >
+                Add Transaction
+              </button>
             </div>
-          </div>
+            <TransactionList
+              transactions={transactions}
+              onDelete={handleTransactionDeleted}
+            />
+          </section>
         </div>
       </main>
 
-      {/* Modals */}
       {showCategoryForm && (
         <CategoryForm
           onClose={() => setShowCategoryForm(false)}

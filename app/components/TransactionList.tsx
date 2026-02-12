@@ -1,5 +1,7 @@
 'use client'
 
+import styles from './TransactionList.module.css'
+
 interface Transaction {
   id: string
   amount: number
@@ -54,42 +56,47 @@ export default function TransactionList({ transactions, onDelete }: TransactionL
   }
 
   if (transactions.length === 0) {
-    return <div className="text-center py-8 text-gray-500">No transactions yet</div>
+    return <div className={styles.empty}>No transactions yet</div>
   }
 
   return (
-    <div className="space-y-2">
+    <ul className={styles.transactionList}>
       {transactions.map((transaction) => (
-        <div
-          key={transaction.id}
-          className="flex items-center justify-between px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50"
-        >
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="font-medium text-gray-900">
-                {transaction.category.name}
-              </span>
-              <span className={`text-sm ${
-                transaction.category.type === 'PROFIT'
-                  ? 'text-green-600'
-                  : 'text-red-600'
-              }`}>
-                {formatAmount(transaction.amount, transaction.category.type)}
-              </span>
+        <li key={transaction.id}>
+          <article className={styles.transactionItem}>
+            <div className={styles.transactionContent}>
+              <header className={styles.transactionHeader}>
+                <span className={styles.categoryName}>
+                  {transaction.category.name}
+                </span>
+                <span 
+                  className={`${styles.amount} ${
+                    transaction.category.type === 'PROFIT'
+                      ? styles.amountProfit
+                      : styles.amountDeficit
+                  }`}
+                >
+                  {formatAmount(transaction.amount, transaction.category.type)}
+                </span>
+              </header>
+              {transaction.description && (
+                <p className={styles.description}>{transaction.description}</p>
+              )}
+              <time className={styles.date} dateTime={transaction.date}>
+                {formatDate(transaction.date)}
+              </time>
             </div>
-            {transaction.description && (
-              <div className="text-sm text-gray-600">{transaction.description}</div>
-            )}
-            <div className="text-xs text-gray-500">{formatDate(transaction.date)}</div>
-          </div>
-          <button
-            onClick={() => handleDelete(transaction.id)}
-            className="ml-4 text-red-600 hover:text-red-800"
-          >
-            🗑️
-          </button>
-        </div>
+            <button
+              onClick={() => handleDelete(transaction.id)}
+              className={styles.deleteButton}
+              type="button"
+              aria-label="Delete transaction"
+            >
+              🗑️
+            </button>
+          </article>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }

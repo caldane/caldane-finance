@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import styles from './TransactionForm.module.css'
 
 interface Category {
   id: string
@@ -54,24 +55,25 @@ export default function TransactionForm({ categories, onClose, onSuccess }: Tran
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900">Add Transaction</h2>
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()} role="dialog" aria-labelledby="transaction-form-title">
+        <h2 id="transaction-form-title" className={styles.title}>Add Transaction</h2>
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+          <div className={styles.error} role="alert">
             {error}
           </div>
         )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label htmlFor="transaction-category" className={styles.label}>
               Category
             </label>
             <select
+              id="transaction-category"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.select}
             >
               <option value="">Select a category</option>
               {categories.map((category) => (
@@ -82,59 +84,62 @@ export default function TransactionForm({ categories, onClose, onSuccess }: Tran
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className={styles.formGroup}>
+            <label htmlFor="transaction-amount" className={styles.label}>
               Amount
             </label>
             <input
+              id="transaction-amount"
               type="number"
               step="0.01"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
               placeholder="0.00"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className={styles.formGroup}>
+            <label htmlFor="transaction-description" className={styles.label}>
               Description (Optional)
             </label>
             <input
+              id="transaction-description"
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
               placeholder="e.g., Weekly grocery shopping"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className={styles.formGroup}>
+            <label htmlFor="transaction-date" className={styles.label}>
               Date
             </label>
             <input
+              id="transaction-date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
             />
           </div>
 
-          <div className="flex gap-3 pt-4">
+          <div className={styles.actions}>
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+              className={`${styles.button} ${styles.cancelButton}`}
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="flex-1 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:bg-gray-400"
+              className={`${styles.button} ${styles.submitButton}`}
             >
               {submitting ? 'Creating...' : 'Create'}
             </button>
