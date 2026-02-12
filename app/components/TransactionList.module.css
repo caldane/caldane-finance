@@ -1,7 +1,15 @@
+.transactionSection {
+  display: flex;
+  flex-direction: column;
+}
+
 .transactionList {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .empty {

@@ -46,15 +46,15 @@ export default function CategoryForm({ onClose, onSuccess }: CategoryFormProps) 
   }
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()} role="dialog" aria-labelledby="category-form-title">
+    <section className={styles.modalOverlay} onClick={onClose}>
+      <form onSubmit={handleSubmit} className={styles.modal} onClick={(e) => e.stopPropagation()} role="dialog" aria-labelledby="category-form-title">
         <h2 id="category-form-title" className={styles.title}>Add Category</h2>
         {error && (
           <div className={styles.error} role="alert">
             {error}
           </div>
         )}
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <fieldset className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="category-name" className={styles.label}>
               Name
@@ -127,8 +127,8 @@ export default function CategoryForm({ onClose, onSuccess }: CategoryFormProps) 
               {submitting ? 'Creating...' : 'Create'}
             </button>
           </div>
-        </form>
-      </div>
-    </div>
+        </fieldset>
+      </form>
+    </section>
   )
 }

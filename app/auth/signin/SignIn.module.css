@@ -1,20 +1,14 @@
 .signInPage {
   min-height: 100vh;
-  background: var(--color-background);
+  background: var(--color-surface);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-md);
-}
-
-.container {
-  background: var(--color-surface);
   padding: var(--spacing-xl);
-  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   max-width: 28rem;
-  width: 100%;
+  margin: 0 auto;
 }
 
 .title {
