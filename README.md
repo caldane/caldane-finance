@@ -10,11 +10,11 @@ A personal finance management web application for tracking income and expenses w
   - Profit categories: Flexible reconciliation periods (bi-weekly, semi-monthly, monthly, yearly, one-time)
 - **Transaction Tracking**: Add, view, and delete transactions associated with categories
 - **Filtering**: Filter transactions by category
-- **Responsive UI**: Clean, modern interface built with Tailwind CSS
+- **Responsive UI**: Clean, modern interface built with CSS Modules
 
 ## Tech Stack
 
-- **Frontend**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 16 (App Router), React 19, TypeScript, CSS Modules
 - **Backend**: Next.js API Routes
 - **Database**: PostgreSQL with Prisma ORM
 - **Authentication**: NextAuth.js with Google OAuth
