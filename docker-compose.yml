@@ -25,7 +25,7 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/caldane_finance
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: your-secret-key-change-in-production
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change-this-secret-in-production}
     depends_on:
       - db
     volumes:

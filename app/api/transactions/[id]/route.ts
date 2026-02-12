@@ -99,8 +99,8 @@ export async function PUT(
       data: {
         ...(amount !== undefined && { amount }),
         ...(description !== undefined && { description }),
-        ...(date && { date: new Date(date) }),
-        ...(categoryId && { categoryId }),
+        ...(date !== undefined && { date: new Date(date) }),
+        ...(categoryId !== undefined && { categoryId }),
       },
       include: {
         category: true,
