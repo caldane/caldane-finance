@@ -1,0 +1,88 @@
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.empty {
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+  color: var(--color-text-muted);
+}
+
+.allCategoriesButton {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.allCategoriesButton:hover {
+  background: var(--color-background);
+}
+
+.allCategoriesButton.selected {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s;
+}
+
+.categoryItem:hover {
+  background: var(--color-background);
+}
+
+.categoryItem.selected {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.categoryButton {
+  flex: 1;
+  text-align: left;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.categoryName {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.categoryMeta {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.categoryCount {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-top: 0.125rem;
+}
+
+.deleteButton {
+  margin-left: 0.5rem;
+  background: transparent;
+  color: var(--color-danger);
+  font-size: 1.25rem;
+  padding: 0.25rem;
+  transition: color 0.2s;
+}
+
+.deleteButton:hover {
+  color: var(--color-danger-hover);
+}

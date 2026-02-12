@@ -1,5 +1,7 @@
 'use client'
 
+import styles from './CategoryList.module.css'
+
 interface Category {
   id: string
   name: string
@@ -49,52 +51,54 @@ export default function CategoryList({
   }
 
   if (categories.length === 0) {
-    return <div className="text-center py-8 text-gray-500">No categories yet</div>
+    return <div className={styles.empty}>No categories yet</div>
   }
 
   return (
-    <div className="space-y-2">
-      <button
-        onClick={() => onSelect(null)}
-        className={`w-full text-left px-4 py-2 rounded-md ${
-          selectedCategory === null
-            ? 'bg-blue-100 text-blue-900'
-            : 'hover:bg-gray-100'
-        }`}
-      >
-        All Categories
-      </button>
-      {categories.map((category) => (
-        <div
-          key={category.id}
-          className={`flex items-center justify-between px-4 py-2 rounded-md ${
-            selectedCategory === category.id
-              ? 'bg-blue-100 text-blue-900'
-              : 'hover:bg-gray-100'
-          }`}
+    <ul className={styles.categoryList}>
+      <li>
+        <button
+          onClick={() => onSelect(null)}
+          className={`${styles.allCategoriesButton} ${selectedCategory === null ? styles.selected : ''}`}
+          type="button"
         >
-          <button
-            onClick={() => onSelect(category.id)}
-            className="flex-1 text-left"
+          All Categories
+        </button>
+      </li>
+      {categories.map((category) => (
+        <li key={category.id}>
+          <article
+            className={`${styles.categoryItem} ${selectedCategory === category.id ? styles.selected : ''}`}
           >
-            <div className="font-medium">{category.name}</div>
-            <div className="text-xs text-gray-600">
-              {category.type === 'PROFIT' ? '💰' : '💳'} {category.type.toLowerCase()} • {formatPeriod(category.reconciliationPeriod)}
-            </div>
-            {category._count && (
-              <div className="text-xs text-gray-500">
-                {category._count.transactions} transaction{category._count.transactions !== 1 ? 's' : ''}
+            <button
+              onClick={() => onSelect(category.id)}
+              className={styles.categoryButton}
+              type="button"
+            >
+              <div className={styles.categoryName}>{category.name}</div>
+              <div className={styles.categoryMeta}>
+                <span>{category.type === 'PROFIT' ? '💰' : '💳'}</span>
+                <span>{category.type.toLowerCase()}</span>
+                <span>•</span>
+                <span>{formatPeriod(category.reconciliationPeriod)}</span>
               </div>
-            )}
-          </button>
-          <button
-            onClick={() => handleDelete(category.id)}
-            className="ml-2 text-red-600 hover:text-red-800"
-          >
-            🗑️
-          </button>
-        </div>
+              {category._count && (
+                <small className={styles.categoryCount}>
+                  {category._count.transactions} transaction{category._count.transactions !== 1 ? 's' : ''}
+                </small>
+              )}
+            </button>
+            <button
+              onClick={() => handleDelete(category.id)}
+              className={styles.deleteButton}
+              type="button"
+              aria-label="Delete category"
+            >
+              🗑️
+            </button>
+          </article>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
