@@ -45,7 +45,7 @@ export default function CategoryList({
   }
 
   const formatPeriod = (period: string) => {
-    return period.toLowerCase().replace('_', '-')
+    return period.toLowerCase().replace(/_/g, '-')
   }
 
   if (categories.length === 0) {

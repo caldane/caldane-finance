@@ -260,7 +260,7 @@ pg_isready
 echo $DATABASE_URL
 
 # Test connection
-npx prisma db execute --stdin < "SELECT 1;"
+npx prisma db execute --stdin <<< 'SELECT 1;'
 ```
 
 ### OAuth Issues

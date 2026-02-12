@@ -7,10 +7,32 @@ import TransactionList from './TransactionList'
 import CategoryForm from './CategoryForm'
 import TransactionForm from './TransactionForm'
 
+interface Category {
+  id: string
+  name: string
+  type: string
+  reconciliationPeriod: string
+  _count?: {
+    transactions: number
+  }
+}
+
+interface Transaction {
+  id: string
+  amount: number
+  description: string | null
+  date: string
+  category: {
+    id: string
+    name: string
+    type: string
+  }
+}
+
 export default function Dashboard() {
   const { data: session } = useSession()
-  const [categories, setCategories] = useState([])
-  const [transactions, setTransactions] = useState([])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [showCategoryForm, setShowCategoryForm] = useState(false)
   const [showTransactionForm, setShowTransactionForm] = useState(false)
